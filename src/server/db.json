@@ -1,36 +1,34 @@
 {
-  "list": [
-    {
-      "id": "001",
-      "name": "xxx",
-      "comment": "hello",
-      "ctime": "2023-01-01 12:20:21",
-      "likeNumber": 200
-    },
-    {
-      "id": "002",
-      "name": "xxx",
-      "comment": "hello",
-      "ctime": "2023-01-01 12:20:21",
-      "likeNumber": 200
-    },
-    {
-      "id": "003",
-      "name": "xxx",
-      "comment": "hello",
-      "ctime": "2023-01-01 12:20:21",
-      "likeNumber": 200
-    },
-    {
-      "id": "004",
-      "name": "xxx",
-      "comment": "hello",
-      "ctime": "2023-01-01 12:20:21",
-      "likeNumber": 200
-    }
-  ],
-  "channel":[{
-    "id":"001",
-    "name":"html"
-  }]
+  "bill": {
+    "billList": [
+      {
+        "id": "001",
+        "name": "xxx",
+        "comment": "hello",
+        "ctime": "2023-01-01 12:20:21",
+        "likeNumber": 200
+      },
+      {
+        "id": "002",
+        "name": "xxx",
+        "comment": "hello",
+        "ctime": "2023-01-01 12:20:21",
+        "likeNumber": 200
+      },
+      {
+        "id": "003",
+        "name": "xxx",
+        "comment": "hello",
+        "ctime": "2023-01-01 12:20:21",
+        "likeNumber": 200
+      },
+      {
+        "id": "004",
+        "name": "xxx",
+        "comment": "hello",
+        "ctime": "2023-01-01 12:20:21",
+        "likeNumber": 200
+      }
+    ]
+  }
 }

@@ -1,12 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './modules/counter'
-import personReducer from './modules/person'
-import channelReducer from './modules/channel'
+import billReducer from './modules/billStore'
 
 export default configureStore({
-  reducer:{
-    counter:counterReducer,
-    person:personReducer,
-    channel:channelReducer
-  }
-})
+  reducer: {
+    bill: billReducer,
+  },
+});
