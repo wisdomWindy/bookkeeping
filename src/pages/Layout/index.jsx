@@ -5,7 +5,7 @@ import { fetchBillList } from "@/store/modules/billStore";
 import Tabbar from "@/components/Tabbar";
 import './index.css'
 export default function Layout(){
-  const billList = useSelector(state => state.billStore.billList);
+  
   const navigate= useNavigate();
   const dispatch = useDispatch();
   const tabs = [{

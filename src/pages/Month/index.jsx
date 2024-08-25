@@ -1,9 +1,16 @@
 import { NavBar,DatePicker } from "antd-mobile";
 import './index.css'
-import { useState,useCallback } from "react";
+import { useState,useCallback,useMemo } from "react";
+import { useSelector } from "react-redux";
+import _ from 'lodash'
+import moment from "moment";
 export default function Month(){
+  const billList = useSelector((state) => state.billStore.billList);
   const [currentDate,setCurrentDate] = useState(new Date())
   const [showDate,setShowDate] = useState(false);
+  const monthGroup = useMemo(()=>{
+    return _.groupBy(billList,(item)=>moment(item.date).format('YYYY-MM'))
+  },[billList])
   const statisticsData = {
     output:100,
     income:200,
