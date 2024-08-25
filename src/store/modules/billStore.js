@@ -16,7 +16,7 @@ export default billStore.reducer;
 
 export function fetchBillList(){
   return async (dispatch)=>{
-    const res = await axios.get('/bills')
+    const res = await axios.get('/bills/billList')
     dispatch(setBillList(res.data))
   }
 }

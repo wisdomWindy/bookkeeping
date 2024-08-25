@@ -3,6 +3,6 @@ import billReducer from './modules/billStore'
 
 export default configureStore({
   reducer: {
-    bill: billReducer,
+    billStore: billReducer,
   },
 });

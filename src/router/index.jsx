@@ -3,7 +3,7 @@ import Layout from "@/pages/Layout";
 import Month from '@/pages/Month'
 import Year from '@/pages/Year'
 import New from '@/pages/New'
-export default createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
@@ -22,3 +22,5 @@ export default createBrowserRouter([
     element:<New />
   }
 ]);
+
+export default router;
