@@ -57,7 +57,7 @@ export default function Daily({ billList,title }) {
         {billList.map((item, index) => (
           <div className="bill-sublist-item" key={index}>
             <div className="sublist-item-title">{item.name}</div>
-            <div className="sublist-item-amount">{item.amount}</div>
+            <div className="sublist-item-amount">-{item.amount}</div>
           </div>
         ))}
       </div>
