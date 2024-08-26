@@ -4,11 +4,13 @@ import { useState,useCallback,useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
 import _ from 'lodash'
 import moment from "moment";
+import Daily from "./components/Daily";
 export default function Month(){
   const billList = useSelector((state) => state.billStore.billList);
   const [currentDate,setCurrentDate] = useState(new Date())
   const [currentMonthList,setCurrentMonthList] = useState([])
   const [showDate,setShowDate] = useState(false);
+
   // 获取初始渲染时的数据
   useEffect(()=>{
    const date = moment(currentDate).format('YYYY-MM')
@@ -20,10 +22,20 @@ export default function Month(){
   const monthGroup = useMemo(()=>{
     return _.groupBy(billList,(item)=>moment(item.date).format('YYYY-MM'))
   },[billList])
+  // 按日分组
+   const dayGroup = useMemo(()=>{
+    const groupData =_.groupBy(currentMonthList,(item)=>moment(item.date).format('MM-dd'))
+    const keys = Object.keys(groupData)
+    return {
+      groupData,
+      keys
+    }
+  },[currentMonthList])
+
   // 计算当月收入、支出、结余
   const monthResult = useMemo(()=>{
-    const output = currentMonthList.filter(item => item.type === 'pay').reduce((pre,current)=>{return pre+current.total},0)
-    const income = currentMonthList.filter(item => item.type === 'income').reduce((pre,current)=>{return pre+current.total},0)
+    const output = currentMonthList.filter(item => item.type === 'pay').reduce((pre,current)=>{return pre+current.amount},0)
+    const income = currentMonthList.filter(item => item.type === 'income').reduce((pre,current)=>{return pre+current.amount},0)
     const rest = income - output
     return {
       output,income,rest
@@ -82,6 +94,13 @@ export default function Month(){
             <div className="value">{monthResult.rest}</div>
             <div className="label">结余</div>
           </div>
+        </div>
+        <div className="bill-list">
+          {
+            dayGroup.keys.map((item,index)=>(
+              <Daily {...{title:item,billList:dayGroup.groupData[item]}} key={index}></Daily>
+            ))
+          }
         </div>
       </div>
       <DatePicker
