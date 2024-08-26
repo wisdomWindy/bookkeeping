@@ -1,29 +1,46 @@
 import { NavBar,DatePicker } from "antd-mobile";
 import './index.css'
-import { useState,useCallback,useMemo } from "react";
+import { useState,useCallback,useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
 import _ from 'lodash'
 import moment from "moment";
 export default function Month(){
   const billList = useSelector((state) => state.billStore.billList);
   const [currentDate,setCurrentDate] = useState(new Date())
+  const [currentMonthList,setCurrentMonthList] = useState([])
   const [showDate,setShowDate] = useState(false);
+  // 获取初始渲染时的数据
+  useEffect(()=>{
+   const date = moment(currentDate).format('YYYY-MM')
+   if(monthGroup[date]){
+    setCurrentMonthList(monthGroup[date]);
+   }
+  },[]);
+  // 按月分组
   const monthGroup = useMemo(()=>{
     return _.groupBy(billList,(item)=>moment(item.date).format('YYYY-MM'))
   },[billList])
-  const statisticsData = {
-    output:100,
-    income:200,
-    rest:100
-  }
+  // 计算当月收入、支出、结余
+  const monthResult = useMemo(()=>{
+    const output = currentMonthList.filter(item => item.type === 'pay').reduce((pre,current)=>{return pre+current.total},0)
+    const income = currentMonthList.filter(item => item.type === 'income').reduce((pre,current)=>{return pre+current.total},0)
+    const rest = income - output
+    return {
+      output,income,rest
+    }
+  },[currentMonthList])
+
   // 显示日期选择器
   const selectDate = ()=>{
     setShowDate(true)
   }
   // 确认选择日期
   const confirmSelect = (val)=>{
+    const currentMonthList = monthGroup[moment(val).format('YYYY-MM')];
+    setCurrentMonthList(currentMonthList);
     setCurrentDate(val)
   }
+  // datepicker的选择项渲染函数
   const labelRenderer = useCallback((type, data) => {
     switch (type) {
       case "year":
@@ -54,15 +71,15 @@ export default function Month(){
         </div>
         <div className="list">
           <div className="list-item">
-            <div className="value">{statisticsData.output}</div>
+            <div className="value">{monthResult.output}</div>
             <div className="label">支出</div>
           </div>
           <div className="list-item">
-            <div className="value">{statisticsData.income}</div>
+            <div className="value">{monthResult.income}</div>
             <div className="label">收入</div>
           </div>
           <div className="list-item">
-            <div className="value">{statisticsData.rest}</div>
+            <div className="value">{monthResult.rest}</div>
             <div className="label">结余</div>
           </div>
         </div>
